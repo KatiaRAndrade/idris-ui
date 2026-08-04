@@ -11,7 +11,7 @@
 
 Idris é uma biblioteca de componentes React construída do zero como projeto de portfólio, cobrindo o processo completo de um design system: tokens de design, tipografia, arquitetura de componentes e documentação viva no Storybook.
 
-A identidade visual parte de uma paleta editorial — **bordô, preto e bege** — combinada com uma dupla tipográfica de serifado de display (Fraunces) e sans-serif de interface (Inter), resultando num sistema com personalidade moderna/tech e um toque premium.
+A identidade visual parte de uma paleta editorial — **teal, magenta-vinho, preto e bege** — combinada com uma dupla tipográfica de serifado de display (Fraunces) e sans-serif de interface (Inter), resultando num sistema com personalidade moderna/tech e um toque premium.
 
 ## Índice
 
@@ -67,29 +67,32 @@ Todos os componentes consomem cores via **tokens semânticos** (CSS variables), 
 
 ### Cores
 
-Paleta primária derivada de uma referência editorial (bordô + preto + bege), com semânticas ajustadas pra manter a mesma temperatura quente:
+Paleta primária derivada de referência de moodboard (Pantone Teal Blue + Magenta Purple), com semânticas ajustadas pra manter a mesma temperatura muted:
 
 | Token | Dark | Light | Uso |
 |---|---|---|---|
-| `brand-500` | `#7A2028` | `#7A2028` | Cor de ação/marca |
+| `brand-500` | `#123F45` | `#123F45` | Teal — cor de ação primária |
+| `accent-500` | `#5A2440` | `#5A2440` | Magenta-vinho — accent secundário/premium |
 | `background` | `#171310` | `#F7F3EA` | Fundo base |
 | `surface` | `#1F1B17` | `#FFFFFF` | Cards, painéis |
 | `text-primary` | `#EDE6D6` | `#171310` | Texto principal |
 | `success` | `#5B7A5D` | `#5B7A5D` | Estados positivos |
 | `warning` | `#C9932E` | `#C9932E` | Avisos |
-| `error` | `#C1443F` | `#C1443F` | Erros, ações destrutivas |
+| `error` | `#C0261E` | `#C0261E` | Erros, ações destrutivas |
 | `info` | `#5C87A6` | `#5C87A6` | Informativo |
 
 > Lista completa de tokens (incluindo variações `-hover` e `-bg`) em [`design-system-fundacao.md`](./design-system-fundacao.md).
+
+Além da versão flat, o `accent` (magenta-vinho) tem duas **variantes metalizadas** (`accent-metallic` e `accent-metallic-gold`) — gradientes reservados para momentos de destaque premium (hero, badges de assinatura), não para UI funcional do dia a dia.
 
 ### Tipografia
 
 | Papel | Fonte | Uso |
 |---|---|---|
-| Display / Títulos | **Fraunces** (serifado) | `display` até `heading-3` |
-| Corpo / UI | **Inter** (sans-serif) | `heading-4` até `caption`, toda UI funcional |
+| Display / Títulos | **Fraunces** (serifado) | `display` até `heading-4` |
+| Corpo / UI | **Inter** (sans-serif) | `body-lg` até `caption`, toda UI funcional |
 
-Escala completa: `display` (56px) → `heading-1/2/3` → `heading-4` → `body-lg/body/body-sm` → `label` → `caption` (12px).
+Escala completa: `display` (56px) → `heading-1/2/3/4` → `body-lg/body/body-sm` → `label` → `caption` (12px).
 
 ### Espaçamento, bordas e motion
 

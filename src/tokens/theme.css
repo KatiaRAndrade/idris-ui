@@ -1,9 +1,13 @@
 /* Dark é o tema padrão — vive na raiz */
 :root,
 [data-theme='dark'] {
-  --color-brand-700: #5c1a20;
-  --color-brand-500: #7a2028;
-  --color-brand-400: #9c3540;
+  --color-brand-700: #0b282c;
+  --color-brand-500: #123f45;
+  --color-brand-400: #4c7d80;
+
+  --color-accent-700: #3d1723;
+  --color-accent-500: #5a2440;
+  --color-accent-400: #96556f;
 
   --color-background: #171310;
   --color-surface: #1f1b17;
@@ -21,9 +25,9 @@
   --color-warning-hover: #a97824;
   --color-warning-bg: #2a2318;
 
-  --color-error: #c1443f;
-  --color-error-hover: #9e3530;
-  --color-error-bg: #2a1917;
+  --color-error: #c0261e;
+  --color-error-hover: #9a1f18;
+  --color-error-bg: #2e1916;
 
   --color-info: #5c87a6;
   --color-info-hover: #3f6883;
@@ -31,9 +35,13 @@
 }
 
 [data-theme='light'] {
-  --color-brand-700: #5c1a20;
-  --color-brand-500: #7a2028;
-  --color-brand-400: #9c3540;
+  --color-brand-700: #0b282c;
+  --color-brand-500: #123f45;
+  --color-brand-400: #4c7d80;
+
+  --color-accent-700: #3d1723;
+  --color-accent-500: #5a2440;
+  --color-accent-400: #96556f;
 
   --color-background: #f7f3ea;
   --color-surface: #ffffff;
@@ -51,11 +59,16 @@
   --color-warning-hover: #a97824;
   --color-warning-bg: #fbf0dc;
 
-  --color-error: #c1443f;
-  --color-error-hover: #9e3530;
-  --color-error-bg: #f7e3e1;
+  --color-error: #c0261e;
+  --color-error-hover: #9a1f18;
+  --color-error-bg: #fbe4e1;
 
   --color-info: #5c87a6;
   --color-info-hover: #3f6883;
   --color-info-bg: #e7eef2;
+}
+
+:root {
+  --gradient-accent-metallic: linear-gradient(135deg, #2b0f1a 0%, #5a2440 22%, #9c5e77 48%, #5a2440 74%, #2b0f1a 100%);
+  --gradient-accent-metallic-gold: linear-gradient(135deg, #3d1723 0%, #5a2440 25%, #c9a227 50%, #5a2440 75%, #3d1723 100%);
 }
