@@ -6,7 +6,10 @@ const meta: Meta<typeof Button> = {
   component: Button,
   args: { children: 'Button', variant: 'primary', size: 'md' },
   argTypes: {
-    variant: { control: 'select', options: ['primary', 'secondary', 'ghost', 'destructive'] },
+    variant: {
+      control: 'select',
+      options: ['primary', 'secondary', 'ghost', 'destructive', 'metallic', 'metallic-gold'],
+    },
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
   },
 }
@@ -18,5 +21,7 @@ export const Primary: Story = { args: { variant: 'primary' } }
 export const Secondary: Story = { args: { variant: 'secondary' } }
 export const Ghost: Story = { args: { variant: 'ghost' } }
 export const Destructive: Story = { args: { variant: 'destructive' } }
+export const Metallic: Story = { args: { variant: 'metallic' } }
+export const MetallicGold: Story = { args: { variant: 'metallic-gold' } }
 export const Loading: Story = { args: { loading: true } }
 export const Disabled: Story = { args: { disabled: true } }

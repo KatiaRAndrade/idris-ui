@@ -9,6 +9,10 @@
   --color-brand-500: var(--color-brand-500);
   --color-brand-400: var(--color-brand-400);
 
+  --color-accent-700: var(--color-accent-700);
+  --color-accent-500: var(--color-accent-500);
+  --color-accent-400: var(--color-accent-400);
+
   --color-background: var(--color-background);
   --color-surface: var(--color-surface);
   --color-surface-elevated: var(--color-surface-elevated);

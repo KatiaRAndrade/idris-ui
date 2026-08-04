@@ -9,11 +9,16 @@ const button = tv({
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400',
   ],
   variants: {
+    // `metallic`/`metallic-gold`: uso pontual (hero, CTA de destaque), não para botões padrão
     variant: {
       primary: 'bg-brand-500 text-text-primary hover:bg-brand-700',
       secondary: 'bg-surface-elevated text-text-primary border border-white/10 hover:bg-surface',
       ghost: 'bg-transparent text-text-primary hover:bg-surface',
       destructive: 'bg-error text-text-primary hover:bg-error-hover',
+      metallic:
+        'bg-[image:var(--gradient-accent-metallic)] text-text-primary hover:brightness-110',
+      'metallic-gold':
+        'bg-[image:var(--gradient-accent-metallic-gold)] text-text-primary hover:brightness-110',
     },
     size: {
       sm: 'px-3 py-2 text-sm gap-1.5',
