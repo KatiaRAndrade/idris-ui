@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Button > corresponde ao snapshot 1`] = `
+<div>
+  <button
+    class="relative inline-flex items-center justify-center font-sans font-medium rounded-md transition-colors duration-fast disabled:opacity-40 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 data-[loading]:text-transparent data-[loading]:pointer-events-none bg-brand-500 text-text-primary hover:bg-brand-700 px-4 py-3 text-base gap-2"
+    data-size="md"
+    data-variant="primary"
+  >
+    <span>
+      Salvar
+    </span>
+  </button>
+</div>
+`;

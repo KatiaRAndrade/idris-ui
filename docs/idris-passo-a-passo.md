@@ -5,23 +5,6 @@
 
 ---
 
-## Status atual do projeto (checado em 02/08)
-
-- [x] Repo git criado (`git init`) — **ainda sem nenhum commit**
-- [x] `npx storybook@latest init` rodado — `.storybook/` e `stories/` (exemplos padrão do Storybook, não o Button real) existem
-- [x] `vitest.config.ts` existe, mas é o gerado pelo addon-vitest do Storybook (roda testes de stories via browser/Playwright) — **diferente** do vitest.config da seção 6 (jsdom + testing-library)
-- [ ] `package.json` ainda é o **padrão do `storybook init`** (nome/versão genéricos, sem scripts de build de lib, sem `peerDependencies`, sem changesets) — passo 9 não feito
-- [ ] `src/` não existe — nada de `tokens/theme.css`, `styles/globals.css`, `components/Button`, `index.ts`
-- [ ] `tailwind.config.ts` não existe
-- [ ] `vite.config.ts` (modo lib) não existe
-- [ ] Changesets não instalado/configurado
-
-**Atenção — divergência de versão:** as deps instaladas são **Tailwind v4.3.3** e **TypeScript v7.0.2**, mais novas que a sintaxe assumida originalmente na seção 3 (Tailwind v3, `tailwind.config.ts` + `content` array + `@tailwind base/components/utilities`). A seção 3 abaixo já foi corrigida para v4 (config via CSS com `@theme`, plugin `@tailwindcss/vite`). Também não há `@tailwindcss/postcss` nem `@tailwindcss/vite` instalados ainda — só `tailwindcss`, `postcss` e `autoprefixer` (que na v4 não são mais necessários se usar o plugin do Vite).
-
-**Próximos passos recomendados, na ordem:** 1) commit inicial do que já existe → 2) criar `src/` com tokens e globals.css (seção 4, ajustada p/ v4) → 3) `vite.config.ts` em modo lib (seção 5) → 4) `vitest.config.ts` de verdade p/ testes de componente (seção 6, pode conviver com o de Storybook usando `projects`) → 5) Button real (seção 7) → 6) `package.json` (seção 9) → 7) Changesets (seção 10).
-
----
-
 ## 1. Criar o projeto
 
 ```bash
@@ -82,71 +65,79 @@ npx storybook@latest init
 
 ## 3. Configurar o Tailwind
 
-> ⚠️ **Ajustado para Tailwind v4** (versão realmente instalada no projeto, `4.3.3`). Na v4 não existe mais `tailwind.config.ts` com `content`/`darkMode` por padrão — a config vive em CSS, via `@theme`, e a integração com Vite é feita pelo plugin `@tailwindcss/vite` em vez de PostCSS clássico. Se preferir manter `postcss.config` + `autoprefixer` (já instalados), também funciona, mas o caminho recomendado pela v4 é o plugin do Vite.
-
 ```bash
-npm install -D @tailwindcss/vite
+npx tailwindcss init -p
 ```
 
-**`vite.config.ts`** — adiciona o plugin (ver seção 5 para o resto da config):
+**`tailwind.config.ts`** — os tokens da seção 2 do documento de fundação, como CSS variables:
 
 ```ts
-import tailwindcss from '@tailwindcss/vite'
-// ...
-plugins: [react(), tailwindcss(), dts({ include: ['src'] })],
+import type { Config } from 'tailwindcss'
+
+export default {
+  content: ['./src/**/*.{ts,tsx}', './.storybook/**/*.{ts,tsx}'],
+  darkMode: ['selector', '[data-theme="dark"]'],
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          700: 'var(--color-brand-700)',
+          500: 'var(--color-brand-500)',
+          400: 'var(--color-brand-400)',
+        },
+        accent: {
+          700: 'var(--color-accent-700)',
+          500: 'var(--color-accent-500)',
+          400: 'var(--color-accent-400)',
+        },
+        background: 'var(--color-background)',
+        surface: 'var(--color-surface)',
+        'surface-elevated': 'var(--color-surface-elevated)',
+        text: {
+          primary: 'var(--color-text-primary)',
+          secondary: 'var(--color-text-secondary)',
+        },
+        beige: 'var(--color-beige-surface)',
+        success: {
+          DEFAULT: 'var(--color-success)',
+          hover: 'var(--color-success-hover)',
+          bg: 'var(--color-success-bg)',
+        },
+        warning: {
+          DEFAULT: 'var(--color-warning)',
+          hover: 'var(--color-warning-hover)',
+          bg: 'var(--color-warning-bg)',
+        },
+        error: {
+          DEFAULT: 'var(--color-error)',
+          hover: 'var(--color-error-hover)',
+          bg: 'var(--color-error-bg)',
+        },
+        info: {
+          DEFAULT: 'var(--color-info)',
+          hover: 'var(--color-info-hover)',
+          bg: 'var(--color-info-bg)',
+        },
+      },
+      fontFamily: {
+        display: ['Fraunces', 'serif'],
+        sans: ['Inter', 'sans-serif'],
+      },
+      spacing: {
+        1: '4px', 2: '8px', 3: '12px', 4: '16px',
+        5: '24px', 6: '32px', 7: '48px', 8: '64px', 9: '96px',
+      },
+      borderRadius: {
+        sm: '6px', md: '10px', lg: '16px', full: '9999px',
+      },
+      transitionDuration: {
+        fast: '150ms', base: '250ms', slow: '400ms',
+      },
+    },
+  },
+  plugins: [],
+} satisfies Config
 ```
-
-Os tokens da seção 2 do documento de fundação entram direto no CSS via `@theme`, dentro de `src/styles/globals.css` (ver seção 4) — não precisam mais de um arquivo `tailwind.config.ts` separado. Tema dark/light via atributo `data-theme` usa `@custom-variant`:
-
-```css
-@import 'tailwindcss';
-
-@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
-
-@theme {
-  --color-brand-700: var(--color-brand-700);
-  --color-brand-500: var(--color-brand-500);
-  --color-brand-400: var(--color-brand-400);
-
-  --color-background: var(--color-background);
-  --color-surface: var(--color-surface);
-  --color-surface-elevated: var(--color-surface-elevated);
-
-  --color-text-primary: var(--color-text-primary);
-  --color-text-secondary: var(--color-text-secondary);
-  --color-beige-surface: var(--color-beige-surface);
-
-  --color-success: var(--color-success);
-  --color-success-hover: var(--color-success-hover);
-  --color-success-bg: var(--color-success-bg);
-
-  --color-warning: var(--color-warning);
-  --color-warning-hover: var(--color-warning-hover);
-  --color-warning-bg: var(--color-warning-bg);
-
-  --color-error: var(--color-error);
-  --color-error-hover: var(--color-error-hover);
-  --color-error-bg: var(--color-error-bg);
-
-  --color-info: var(--color-info);
-  --color-info-hover: var(--color-info-hover);
-  --color-info-bg: var(--color-info-bg);
-
-  --font-display: 'Fraunces', serif;
-  --font-sans: 'Inter', sans-serif;
-
-  --spacing-1: 4px; --spacing-2: 8px; --spacing-3: 12px; --spacing-4: 16px;
-  --spacing-5: 24px; --spacing-6: 32px; --spacing-7: 48px; --spacing-8: 64px; --spacing-9: 96px;
-
-  --radius-sm: 6px; --radius-md: 10px; --radius-lg: 16px; --radius-full: 9999px;
-
-  --transition-duration-fast: 150ms;
-  --transition-duration-base: 250ms;
-  --transition-duration-slow: 400ms;
-}
-```
-
-Repare que os nomes em `@theme` (ex.: `--color-brand-700`) apontam pra CSS variables de mesmo nome — essas variables reais de valor (`#5C1A20` etc.) continuam vindo de `src/tokens/theme.css`, importado logo depois (seção 4). Isso preserva a troca dark/light por `data-theme` sem duplicar a paleta.
 
 ---
 
@@ -158,9 +149,13 @@ Repare que os nomes em `@theme` (ex.: `--color-brand-700`) apontam pra CSS varia
 /* Dark é o tema padrão — vive na raiz */
 :root,
 [data-theme='dark'] {
-  --color-brand-700: #5C1A20;
-  --color-brand-500: #7A2028;
-  --color-brand-400: #9C3540;
+  --color-brand-700: #0B282C;
+  --color-brand-500: #123F45;
+  --color-brand-400: #4C7D80;
+
+  --color-accent-700: #3D1723;
+  --color-accent-500: #5A2440;
+  --color-accent-400: #96556F;
 
   --color-background: #171310;
   --color-surface: #1F1B17;
@@ -178,19 +173,27 @@ Repare que os nomes em `@theme` (ex.: `--color-brand-700`) apontam pra CSS varia
   --color-warning-hover: #A97824;
   --color-warning-bg: #2A2318;
 
-  --color-error: #C1443F;
-  --color-error-hover: #9E3530;
-  --color-error-bg: #2A1917;
+  --color-error: #C0261E;
+  --color-error-hover: #9A1F18;
+  --color-error-bg: #2E1916;
 
   --color-info: #5C87A6;
   --color-info-hover: #3F6883;
   --color-info-bg: #1A2126;
+
+  /* Variantes metalizadas — uso pontual (hero, badges premium), não em UI funcional */
+  --gradient-accent-metallic: linear-gradient(135deg, #2B0F1A 0%, #5A2440 22%, #9C5E77 48%, #5A2440 74%, #2B0F1A 100%);
+  --gradient-accent-metallic-gold: linear-gradient(135deg, #3D1723 0%, #5A2440 25%, #C9A227 50%, #5A2440 75%, #3D1723 100%);
 }
 
 [data-theme='light'] {
-  --color-brand-700: #5C1A20;
-  --color-brand-500: #7A2028;
-  --color-brand-400: #9C3540;
+  --color-brand-700: #0B282C;
+  --color-brand-500: #123F45;
+  --color-brand-400: #4C7D80;
+
+  --color-accent-700: #3D1723;
+  --color-accent-500: #5A2440;
+  --color-accent-400: #96556F;
 
   --color-background: #F7F3EA;
   --color-surface: #FFFFFF;
@@ -208,9 +211,9 @@ Repare que os nomes em `@theme` (ex.: `--color-brand-700`) apontam pra CSS varia
   --color-warning-hover: #A97824;
   --color-warning-bg: #FBF0DC;
 
-  --color-error: #C1443F;
-  --color-error-hover: #9E3530;
-  --color-error-bg: #F7E3E1;
+  --color-error: #C0261E;
+  --color-error-hover: #9A1F18;
+  --color-error-bg: #FBE4E1;
 
   --color-info: #5C87A6;
   --color-info-hover: #3F6883;
@@ -220,19 +223,16 @@ Repare que os nomes em `@theme` (ex.: `--color-brand-700`) apontam pra CSS varia
 
 Troca de tema no app-consumidor: `document.documentElement.setAttribute('data-theme', 'light' | 'dark')`.
 
-**`src/styles/globals.css`** — sintaxe v4 (import único do Tailwind + `@theme`/`@custom-variant` da seção 3):
+**`src/styles/globals.css`**:
 
 ```css
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import './../tokens/theme.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap');
-
-@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
-
-@theme {
-  /* ver bloco completo na seção 3 */
-}
 ```
 
 > Numa lib publicável, considere self-host das fontes em vez de Google Fonts CDN — evita dependência externa no bundle de quem consome o pacote. Fica como melhoria futura.
@@ -246,12 +246,11 @@ Troca de tema no app-consumidor: `document.documentElement.setAttribute('data-th
 ```ts
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
 import dts from 'vite-plugin-dts'
 import { resolve } from 'path'
 
 export default defineConfig({
-  plugins: [react(), tailwindcss(), dts({ include: ['src'] })],
+  plugins: [react(), dts({ include: ['src'] })],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
