@@ -48,7 +48,7 @@ Como é dark mode + tech + vibrante, a estrutura de tokens precisa suportar **te
 
 **Regra de composição:** teal = ação primária · magenta-vinho = accent secundário/premium (badges, destaques pontuais) · preto = base · bege = texto e respiro. Evitar os quatro competindo no mesmo elemento.
 
-**Distinção vs. error:** tanto o `brand-500` (teal) quanto o `accent-500` (magenta-vinho) ficam claramente distantes do `error` (`#C0261E`, vermelho puro) na roda de cor — sem risco de confusão com estado de erro.
+**Distinção vs. error:** tanto o `brand-500` (teal) quanto o `accent-500` (magenta-vinho) ficam claramente distantes do `error` (`#D9433A`, vermelho puro) na roda de cor — sem risco de confusão com estado de erro.
 
 ### Variantes metalizadas
 
@@ -86,8 +86,8 @@ O `accent` (magenta-vinho) ganha duas variantes em **gradiente metalizado** — 
 | `warning` | `#C9932E` | Mostarda — avisos, atenção |
 | `warning-hover` | `#A97824` | Hover/active de warning |
 | `warning-bg` | `#2A2318` | Fundo de alerta/toast de warning |
-| `error` | `#C0261E` | Vermelho puro/saturado — mais reconhecível como erro, agora que `brand`/`accent` não competem mais nesse território | 
-| `error-hover` | `#9A1F18` | Hover/active de error — mesma matiz, ~20% mais escuro |
+| `error` | `#D9433A` | Vermelho puro/saturado — mais reconhecível como erro, agora que `brand`/`accent` não competem mais nesse território | 
+| `error-hover` | `#B23429` | Hover/active de error |
 | `error-bg` | `#2E1916` | Fundo de alerta/toast de erro |
 | `info` | `#5C87A6` | Azul acinzentado — a única cor "fria" do sistema, por contraste proposital |
 | `info-hover` | `#3F6883` | Hover/active de info |
@@ -194,7 +194,7 @@ Escopo definido: **sistema completo** (tokens + componentes + padrões). Sugest�
 
 ### Onda 1 — Fundação (essenciais)
 - [x] Button (variantes: primary, secondary, ghost, destructive / estados: default, hover, active, disabled, loading) — **componente-modelo, ver 4.1**
-- [ ] Input / Textarea
+- [x] Input / Textarea — **ver 4.2**, documentação completa em `idris-componente-input.md`
 - [ ] Card
 - [ ] Badge/Tag
 - [ ] Typography (componentes de texto: Heading, Text)
@@ -243,6 +243,20 @@ Primeiro componente documentado — serve de template pros próximos.
 **Tokens usados:** `radius-md`, `space-2` a `space-5`, `duration-fast` (transição de hover), `type/label` (tipografia do texto do botão)
 
 **Acessibilidade:** `role="button"` (nativo se for `<button>`), foco visível sempre, `aria-disabled` quando desabilitado, `aria-busy="true"` durante loading, contraste mínimo AA verificado em todas as variantes sobre seus respectivos fundos.
+
+### 4.2 Componente: Input
+
+Segundo componente da Onda 1 — código completo em [`idris-componente-input.md`](./idris-componente-input.md). Diferente do Button, exige `.Root` explícito (coordena `label`/`input`/mensagens via contexto, não é um elemento único).
+
+**Partes:** `Input.Root` (contexto: id, size, disabled, invalid) · `Input.Label` · `Input.Field` (aceita `asChild`) · `Input.Hint` (esconde quando há erro) · `Input.Error` (`role="alert"`, só aparece quando `invalid`)
+
+**Tamanhos:** `sm` / `md` / `lg` — mesma escala de padding do Button, pra alinhar visualmente numa mesma linha de formulário.
+
+**Estados:** `default`, `focus` (ring `brand-400`), `invalid` (borda + ring `error`), `disabled` (propagado do Root pro Field)
+
+**Tokens usados:** `surface`, `border-thin`, `text-primary`/`text-secondary`, `error`, `brand-400`, `radius-md`, `space-2` a `space-5`, `type/label`, `type/body-sm`
+
+**Acessibilidade:** `label` associado ao campo via `htmlFor`/`id` (gerado com `useId`), `aria-invalid` quando `invalid`, `aria-describedby` montado dinamicamente a partir do `Hint`/`Error` renderizados (registro via contexto, não hardcoded), `Error` com `role="alert"` pra leitores de tela anunciarem a mudança.
 
 ---
 
