@@ -1,0 +1,26 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Card > corresponde ao snapshot 1`] = `
+<div>
+  <div
+    class="rounded-lg border border-white/10 overflow-hidden transition-colors duration-fast bg-surface-elevated"
+    data-size="md"
+    data-variant="elevated"
+  >
+    <div
+      class="flex flex-col gap-1.5 p-5 pb-0"
+    >
+      <h3
+        class="font-display text-xl font-semibold text-text-primary"
+      >
+        Título
+      </h3>
+    </div>
+    <div
+      class="p-5"
+    >
+      Conteúdo
+    </div>
+  </div>
+</div>
+`;
