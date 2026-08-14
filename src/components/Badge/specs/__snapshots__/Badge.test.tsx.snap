@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Badge > corresponde ao snapshot 1`] = `
+<div>
+  <span
+    class="inline-flex items-center gap-1 rounded-full font-sans font-medium whitespace-nowrap bg-brand-500/15 text-brand-400 px-2.5 py-1 text-sm"
+    data-size="md"
+    data-variant="brand"
+  >
+    <span>
+      Novo
+    </span>
+  </span>
+</div>
+`;
