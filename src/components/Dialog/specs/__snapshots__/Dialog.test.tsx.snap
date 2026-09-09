@@ -1,0 +1,58 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Dialog > corresponde ao snapshot 1`] = `
+<body
+  style="overflow: hidden; padding-right: 1024px;"
+>
+  <div>
+    <button
+      aria-expanded="true"
+      aria-haspopup="dialog"
+      data-state="open"
+      type="button"
+    >
+      Abrir
+    </button>
+  </div>
+  <div
+    aria-hidden="true"
+    class="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm transition-opacity duration-base"
+    data-state="open"
+  />
+  <div
+    tabindex="-1"
+  >
+    <div
+      aria-describedby="_r_9_-description"
+      aria-labelledby="_r_9_-title"
+      aria-modal="true"
+      class="fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 w-[calc(100vw-2rem)] max-h-[calc(100vh-4rem)] overflow-y-auto rounded-lg border border-white/10 bg-surface-elevated focus-visible:outline-none transition-opacity duration-base max-w-[520px]"
+      data-modal="true"
+      data-size="md"
+      data-state="open"
+      role="dialog"
+    >
+      <h2
+        class="font-display text-xl font-semibold text-text-primary"
+        id="_r_9_-title"
+      >
+        Editar perfil
+      </h2>
+      <p
+        class="text-sm text-text-secondary"
+        id="_r_9_-description"
+      >
+        Descrição do dialog
+      </p>
+      <button>
+        campo
+      </button>
+      <button
+        type="button"
+      >
+        Cancelar
+      </button>
+    </div>
+  </div>
+</body>
+`;
