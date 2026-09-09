@@ -1,0 +1,27 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Tooltip > corresponde ao snapshot 1`] = `
+<div>
+  <span
+    class="relative inline-flex"
+    data-side="bottom"
+    data-size="md"
+    data-state="open"
+  >
+    <button
+      aria-describedby="_r_6_"
+      type="button"
+    >
+      Ajuda
+    </button>
+    <div
+      class="absolute z-50 w-max max-w-xs rounded-md border border-white/10 bg-surface-elevated font-sans text-text-primary shadow-lg pointer-events-none top-full left-1/2 mt-2 -translate-x-1/2 px-2.5 py-1.5 text-sm"
+      data-side="bottom"
+      id="_r_6_"
+      role="tooltip"
+    >
+      Texto de ajuda
+    </div>
+  </span>
+</div>
+`;
