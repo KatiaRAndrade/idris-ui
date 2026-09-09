@@ -28,6 +28,23 @@ export const field = tv({
   defaultVariants: { size: 'md' },
 })
 
+export const textarea = tv({
+  extend: field,
+  base: 'min-h-[80px] overflow-y-auto',
+  variants: {
+    resize: {
+      none: 'resize-none',
+      vertical: 'resize-y',
+    },
+    autoResize: {
+      // Com altura automática, o handle de resize manual não faz sentido:
+      // a altura seria sobrescrita na próxima tecla digitada.
+      true: 'resize-none overflow-hidden',
+    },
+  },
+  defaultVariants: { resize: 'vertical' },
+})
+
 export const hint = tv({
   base: 'text-sm text-text-secondary',
 })

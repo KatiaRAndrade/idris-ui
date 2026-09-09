@@ -28,3 +28,25 @@ exports[`Input > corresponde ao snapshot 1`] = `
   </div>
 </div>
 `;
+
+exports[`Input.Textarea > corresponde ao snapshot 1`] = `
+<div>
+  <div
+    class="flex flex-col gap-1.5"
+    data-size="md"
+  >
+    <label
+      class="font-sans text-sm font-medium text-text-primary"
+      for="_r_f_"
+    >
+      Descrição
+    </label>
+    <textarea
+      class="w-full rounded-md border border-white/10 bg-surface text-text-primary font-sans placeholder:text-text-secondary transition-colors duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 disabled:opacity-40 disabled:pointer-events-none min-h-[80px] overflow-y-auto resize-y px-4 py-3 text-base"
+      data-size="md"
+      id="_r_f_"
+      rows="4"
+    />
+  </div>
+</div>
+`;
