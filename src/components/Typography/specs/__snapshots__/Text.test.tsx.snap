@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Text > corresponde ao snapshot 1`] = `
+<div>
+  <p
+    class="font-sans text-xs font-medium leading-[1.4] uppercase tracking-wide text-text-secondary"
+    data-size="caption"
+  >
+    Legenda
+  </p>
+</div>
+`;
