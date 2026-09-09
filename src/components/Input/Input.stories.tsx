@@ -45,3 +45,35 @@ export const Disabled: Story = {
     </Input.Root>
   ),
 }
+
+export const Textarea: Story = {
+  render: (args) => (
+    <Input.Root {...args}>
+      <Input.Label>Descrição</Input.Label>
+      <Input.Textarea rows={4} placeholder="Conte um pouco sobre o projeto…" />
+      <Input.Hint>Aparece na listagem pública.</Input.Hint>
+    </Input.Root>
+  ),
+}
+
+export const TextareaAutoResize: Story = {
+  name: 'Textarea (autoResize)',
+  render: (args) => (
+    <Input.Root {...args} size="sm">
+      <Input.Label>Comentário</Input.Label>
+      <Input.Textarea autoResize rows={1} className="max-h-40" />
+    </Input.Root>
+  ),
+}
+
+export const TextareaInvalid: Story = {
+  name: 'Textarea (inválido)',
+  args: { invalid: true },
+  render: (args) => (
+    <Input.Root {...args}>
+      <Input.Label>Motivo do cancelamento</Input.Label>
+      <Input.Textarea />
+      <Input.Error>Explique em pelo menos 20 caracteres.</Input.Error>
+    </Input.Root>
+  ),
+}
