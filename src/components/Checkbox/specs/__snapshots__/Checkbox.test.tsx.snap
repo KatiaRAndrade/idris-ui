@@ -1,0 +1,22 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Checkbox > corresponde ao snapshot 1`] = `
+<div>
+  <button
+    aria-checked="true"
+    aria-label="Aceitar"
+    class="inline-flex shrink-0 items-center justify-center rounded-sm border border-white/20 bg-surface transition-colors duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 hover:border-white/40 data-[state=checked]:border-brand-500 data-[state=checked]:bg-brand-500 data-[state=indeterminate]:border-brand-500 data-[state=indeterminate]:bg-brand-500 data-[invalid]:border-error data-[invalid]:focus-visible:ring-error data-[disabled]:opacity-40 data-[disabled]:pointer-events-none h-5 w-5"
+    data-size="md"
+    data-state="checked"
+    role="checkbox"
+    type="button"
+  >
+    <span
+      aria-hidden="true"
+      class="inline-flex items-center justify-center text-text-primary"
+    >
+      ✓
+    </span>
+  </button>
+</div>
+`;
