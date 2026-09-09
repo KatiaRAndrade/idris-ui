@@ -1,5 +1,6 @@
 export * from './components/Badge'
 export * from './components/Button'
 export * from './components/Card'
+export * from './components/Tooltip'
 export * as Input from './components/Input'
 import './styles/globals.css'
