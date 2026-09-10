@@ -19,10 +19,13 @@
 
 ## 3. Simplificações deliberadas (vs. o Tooltip real do Radix)
 
-Duas coisas que o Radix resolve e a gente conscientemente simplificou pra v1:
+Uma coisa que o Radix resolve e a gente conscientemente simplificou pra v1:
 
 1. **Sem `Tooltip.Provider` global** — o Radix usa um Provider pra compartilhar configuração de delay entre múltiplos tooltips na mesma tela (e evitar re-delay ao mover o mouse entre tooltips próximos). Por enquanto, o delay é uma prop direta no `Root`. Se isso incomodar na prática (vários tooltips próximos um do outro), é candidato a virar `Provider` depois.
-2. **Sem posicionamento inteligente (collision detection)** — o `Content` é posicionado com CSS simples (`absolute`, sempre abaixo do trigger). O Radix (e libs como `floating-ui`) recalculam a posição pra não estourar a tela. Fica documentado como próxima melhoria, não como parte do escopo v1.
+
+**Resolvido:** o posicionamento inteligente (flip, shift, seta) que estava pendente aqui foi resolvido via [`useFloating`](./idris-hook-use-floating.md) — implementação própria, decidida em [`idris-decisao-posicionamento.md`](./idris-decisao-posicionamento.md) (Opção A). `Tooltip.Root` ganhou a prop `align` (além do `side` que já existia), `Tooltip.Content` agora carrega `data-side` com o lado **real** depois do flip (não necessariamente o pedido), e `Tooltip.Arrow` — que já aparecia na tabela da seção 2 mas não tinha implementação — existe de verdade agora, posicionada pelo hook.
+
+**Limite conhecido, herdado do `useFloating`:** o Tooltip não usa `Portal`. Continua renderizado inline, então um trigger dentro de um container com `overflow: hidden` ainda pode cortar o balão, mesmo com o `flip`/`shift` calculados corretamente — a matemática de posição não resolve recorte visual, só evita estourar a viewport quando não há corte no caminho. Adicionar `Tooltip.Portal` fica registrado como próximo passo (mesma decisão que o Dialog já tomou), fora do escopo deste retrofit pra não misturar duas mudanças de API na mesma leva.
 
 ## 4. Tokens usados
 
