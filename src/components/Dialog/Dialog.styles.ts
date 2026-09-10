@@ -4,6 +4,8 @@ export const overlay = tv({
   base: [
     'fixed inset-0 z-50 bg-background/80 backdrop-blur-sm',
     'transition-opacity duration-base',
+    'data-[state=open]:opacity-100',
+    'data-[state=closed]:opacity-0',
   ],
 })
 
@@ -14,6 +16,8 @@ export const content = tv({
     'rounded-lg border border-white/10 bg-surface-elevated',
     'focus-visible:outline-none',
     'transition-opacity duration-base',
+    'data-[state=open]:opacity-100',
+    'data-[state=closed]:opacity-0',
   ],
   variants: {
     size: {

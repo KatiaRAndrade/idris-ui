@@ -7,6 +7,7 @@ import {
   type TextareaHTMLAttributes,
 } from 'react'
 import { Slot } from '../../../primitives/Slot'
+import { mergeRefs } from '../../../primitives/mergeRefs'
 import { useInputContext } from '../Input.context'
 import { textarea } from '../Input.styles'
 
@@ -66,11 +67,7 @@ export const InputTextarea = forwardRef<HTMLTextAreaElement, InputTextareaProps>
 
     return (
       <textarea
-        ref={(node) => {
-          innerRef.current = node
-          if (typeof forwardedRef === 'function') forwardedRef(node)
-          else if (forwardedRef) forwardedRef.current = node
-        }}
+        ref={mergeRefs(innerRef, forwardedRef)}
         onInput={(event) => {
           onInput?.(event)
           adjustHeight()

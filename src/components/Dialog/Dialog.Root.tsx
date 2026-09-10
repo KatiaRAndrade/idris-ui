@@ -38,6 +38,12 @@ export function DialogRoot({
     return () => setHasDescription(false)
   }, [])
 
+  const [presentCount, setPresentCount] = useState(0)
+  const registerPresence = useCallback(() => {
+    setPresentCount((n) => n + 1)
+    return () => setPresentCount((n) => n - 1)
+  }, [])
+
   const value = useMemo(
     () => ({
       open,
@@ -49,8 +55,21 @@ export function DialogRoot({
       hasDescription,
       registerTitle,
       registerDescription,
+      presentCount,
+      registerPresence,
     }),
-    [open, setOpen, modal, baseId, hasTitle, hasDescription, registerTitle, registerDescription]
+    [
+      open,
+      setOpen,
+      modal,
+      baseId,
+      hasTitle,
+      hasDescription,
+      registerTitle,
+      registerDescription,
+      presentCount,
+      registerPresence,
+    ]
   )
 
   // O Root não renderiza DOM nenhum — é só o nó de estado, igual ao Popover.Root do Radix
