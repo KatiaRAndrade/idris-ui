@@ -10,8 +10,9 @@ export interface DialogPortalProps {
 }
 
 export function DialogPortal({ children, container, forceMount }: DialogPortalProps) {
-  const { open } = useDialogContext('Portal')
-  if (!open && !forceMount) return null
+  const { open, presentCount } = useDialogContext('Portal')
+  // Continua montado enquanto alguma parte estiver animando a saída
+  if (!open && presentCount === 0 && !forceMount) return null
   return <Portal container={container}>{children}</Portal>
 }
 

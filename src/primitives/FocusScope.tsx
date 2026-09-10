@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useRef, type HTMLAttributes } from 'react'
+import { mergeRefs } from './mergeRefs'
 
 const FOCUSABLE = [
   'a[href]',
@@ -89,15 +90,7 @@ export const FocusScope = forwardRef<HTMLDivElement, FocusScopeProps>(
     }, [trapped, autoFocus, restoreFocus])
 
     return (
-      <div
-        ref={(node) => {
-          nodeRef.current = node
-          if (typeof forwardedRef === 'function') forwardedRef(node)
-          else if (forwardedRef) forwardedRef.current = node
-        }}
-        tabIndex={tabIndex ?? -1}
-        {...props}
-      >
+      <div ref={mergeRefs(nodeRef, forwardedRef)} tabIndex={tabIndex ?? -1} {...props}>
         {children}
       </div>
     )

@@ -1,14 +1,5 @@
 import { cloneElement, forwardRef, isValidElement, type HTMLAttributes, type ReactElement } from 'react'
-
-function mergeRefs<T>(...refs: Array<React.Ref<T> | undefined>) {
-  return (node: T) => {
-    for (const ref of refs) {
-      if (!ref) continue
-      if (typeof ref === 'function') ref(node)
-      else (ref as React.MutableRefObject<T | null>).current = node
-    }
-  }
-}
+import { mergeRefs } from './mergeRefs'
 
 function mergeProps(slotProps: Record<string, unknown>, childProps: Record<string, unknown>) {
   const merged: Record<string, unknown> = { ...slotProps, ...childProps }
