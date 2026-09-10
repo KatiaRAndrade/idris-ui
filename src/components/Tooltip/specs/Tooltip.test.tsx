@@ -58,6 +58,36 @@ describe('Tooltip', () => {
     expect(screen.getByRole('tooltip')).toHaveAttribute('data-side', 'right')
   })
 
+  it('Tooltip.Arrow não renderiza quando fechado', () => {
+    render(
+      <Tooltip delay={0} side="left">
+        <Tooltip.Trigger>
+          <button type="button">Ajuda</button>
+        </Tooltip.Trigger>
+        <Tooltip.Content>
+          Texto
+          <Tooltip.Arrow data-testid="arrow" />
+        </Tooltip.Content>
+      </Tooltip>
+    )
+    expect(screen.queryByTestId('arrow')).not.toBeInTheDocument()
+  })
+
+  it('Tooltip.Arrow renderiza com o mesmo data-side do Content quando aberto', () => {
+    render(
+      <Tooltip delay={0} side="left" defaultOpen>
+        <Tooltip.Trigger>
+          <button type="button">Ajuda</button>
+        </Tooltip.Trigger>
+        <Tooltip.Content>
+          Texto
+          <Tooltip.Arrow data-testid="arrow" />
+        </Tooltip.Content>
+      </Tooltip>
+    )
+    expect(screen.getByTestId('arrow')).toHaveAttribute('data-side', 'left')
+  })
+
   it('lança erro se uma parte for usada fora do Tooltip', () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => render(<Tooltip.Content>Solto</Tooltip.Content>)).toThrow()

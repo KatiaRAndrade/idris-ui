@@ -3,22 +3,21 @@
 exports[`Tooltip > corresponde ao snapshot 1`] = `
 <div>
   <span
-    class="relative inline-flex"
-    data-side="bottom"
-    data-size="md"
+    class="inline-flex"
     data-state="open"
   >
     <button
-      aria-describedby="_r_6_"
+      aria-describedby="_r_8_"
       type="button"
     >
       Ajuda
     </button>
     <div
-      class="absolute z-50 w-max max-w-xs rounded-md border border-white/10 bg-surface-elevated font-sans text-text-primary shadow-lg pointer-events-none top-full left-1/2 mt-2 -translate-x-1/2 px-2.5 py-1.5 text-sm"
+      class="z-50 w-max max-w-xs rounded-md border border-white/10 bg-surface-elevated font-sans text-text-primary shadow-lg pointer-events-none data-[side=top]:origin-bottom data-[side=bottom]:origin-top data-[side=left]:origin-right data-[side=right]:origin-left px-2.5 py-1.5 text-sm"
       data-side="bottom"
-      id="_r_6_"
+      id="_r_8_"
       role="tooltip"
+      style="position: fixed; top: 0px; left: 0px; transform: translate3d(8px, 8px, 0); visibility: visible;"
     >
       Texto de ajuda
     </div>

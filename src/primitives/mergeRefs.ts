@@ -6,7 +6,7 @@ import type { MutableRefObject, Ref } from 'react'
  * `DismissableLayer`, `FocusScope` e `Input.Textarea` (quarta aparição do padrão).
  */
 export function mergeRefs<T>(...refs: Array<Ref<T> | undefined>) {
-  return (node: T) => {
+  return (node: T | null) => {
     for (const ref of refs) {
       if (!ref) continue
       if (typeof ref === 'function') ref(node)
