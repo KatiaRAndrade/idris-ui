@@ -1,6 +1,8 @@
 import { forwardRef, useEffect, type HTMLAttributes } from 'react'
 import { DismissableLayer } from '../../../primitives/DismissableLayer'
 import { FocusScope } from '../../../primitives/FocusScope'
+import { mergeRefs } from '../../../primitives/mergeRefs'
+import { usePresence } from '../../../hooks/usePresence'
 import { useScrollLock } from '../../../hooks/useScrollLock'
 import { useDialogContext, type DialogSize } from '../Dialog.context'
 import { content } from '../Dialog.styles'
@@ -12,9 +14,24 @@ export interface DialogContentProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
-  ({ className, size = 'md', disableOutsideClose = false, children, ...props }, ref) => {
-    const { open, setOpen, modal, titleId, descriptionId, hasTitle, hasDescription } =
-      useDialogContext('Content')
+  ({ className, size = 'md', disableOutsideClose = false, children, ...props }, forwardedRef) => {
+    const {
+      open,
+      setOpen,
+      modal,
+      titleId,
+      descriptionId,
+      hasTitle,
+      hasDescription,
+      registerPresence,
+    } = useDialogContext('Content')
+
+    const { isPresent, ref: presenceRef } = usePresence(open)
+
+    useEffect(() => {
+      if (!isPresent) return
+      return registerPresence()
+    }, [isPresent, registerPresence])
 
     useScrollLock(open && modal)
 
@@ -29,10 +46,12 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
       }
     }, [open, hasTitle])
 
+    if (!isPresent) return null
+
     return (
       <FocusScope trapped={modal} autoFocus restoreFocus>
         <DismissableLayer
-          ref={ref}
+          ref={mergeRefs(forwardedRef, presenceRef)}
           role="dialog"
           aria-modal={modal || undefined}
           aria-labelledby={hasTitle ? titleId : undefined}

@@ -1,5 +1,6 @@
 import { forwardRef, type ReactElement } from 'react'
 import { Slot } from '../../../primitives/Slot'
+import { mergeRefs } from '../../../primitives/mergeRefs'
 import { useTooltipContext } from '../Tooltip.context'
 
 export interface TooltipTriggerProps {
@@ -7,10 +8,10 @@ export interface TooltipTriggerProps {
 }
 
 export const TooltipTrigger = forwardRef<HTMLElement, TooltipTriggerProps>(
-  ({ children }, ref) => {
-    const { open, contentId } = useTooltipContext('Trigger')
+  ({ children }, forwardedRef) => {
+    const { open, contentId, anchorRef } = useTooltipContext('Trigger')
     return (
-      <Slot ref={ref} aria-describedby={open ? contentId : undefined}>
+      <Slot ref={mergeRefs(forwardedRef, anchorRef)} aria-describedby={open ? contentId : undefined}>
         {children}
       </Slot>
     )

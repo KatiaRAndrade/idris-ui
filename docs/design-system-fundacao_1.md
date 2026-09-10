@@ -185,6 +185,7 @@ Já que vai ser **biblioteca standalone + Storybook**, algumas decisões precisa
 | Testes | Testing Library + Vitest/Jest | ✅ **Testing Library + Vitest** |
 | Documentação viva | Storybook (confirmado) + addon de accessibility (a11y) | ✅ Storybook |
 | Publicação | npm público, versionamento semver, Changesets para changelog | ✅ **npm público** |
+| Posicionamento flutuante | Implementação própria vs. `floating-ui` | ✅ **Implementação própria** (`useFloating`) — decisão registrada em [`idris-decisao-posicionamento.md`](./idris-decisao-posicionamento.md) |
 
 ---
 

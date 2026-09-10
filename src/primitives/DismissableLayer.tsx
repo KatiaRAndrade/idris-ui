@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useRef, type HTMLAttributes } from 'react'
+import { mergeRefs } from './mergeRefs'
 
 interface Layer {
   id: symbol
@@ -82,14 +83,7 @@ export const DismissableLayer = forwardRef<HTMLDivElement, DismissableLayerProps
     }, [onDismiss, onEscapeKeyDown, onPointerDownOutside, disableOutsidePointerDown])
 
     return (
-      <div
-        ref={(node) => {
-          nodeRef.current = node
-          if (typeof forwardedRef === 'function') forwardedRef(node)
-          else if (forwardedRef) forwardedRef.current = node
-        }}
-        {...props}
-      >
+      <div ref={mergeRefs(nodeRef, forwardedRef)} {...props}>
         {children}
       </div>
     )
