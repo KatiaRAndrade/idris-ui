@@ -13,6 +13,9 @@ export interface DialogContextValue {
   hasDescription: boolean
   registerTitle: () => () => void
   registerDescription: () => () => void
+  /** Quantas partes ainda estão montadas (incluindo as que estão animando a saída). */
+  presentCount: number
+  registerPresence: () => () => void
 }
 
 export const DialogContext = createContext<DialogContextValue | null>(null)

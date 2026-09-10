@@ -16,7 +16,7 @@ exports[`Dialog > corresponde ao snapshot 1`] = `
   </div>
   <div
     aria-hidden="true"
-    class="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm transition-opacity duration-base"
+    class="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm transition-opacity duration-base data-[state=open]:opacity-100 data-[state=closed]:opacity-0"
     data-state="open"
   />
   <div
@@ -26,7 +26,7 @@ exports[`Dialog > corresponde ao snapshot 1`] = `
       aria-describedby="_r_9_-description"
       aria-labelledby="_r_9_-title"
       aria-modal="true"
-      class="fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 w-[calc(100vw-2rem)] max-h-[calc(100vh-4rem)] overflow-y-auto rounded-lg border border-white/10 bg-surface-elevated focus-visible:outline-none transition-opacity duration-base max-w-[520px]"
+      class="fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 w-[calc(100vw-2rem)] max-h-[calc(100vh-4rem)] overflow-y-auto rounded-lg border border-white/10 bg-surface-elevated focus-visible:outline-none transition-opacity duration-base data-[state=open]:opacity-100 data-[state=closed]:opacity-0 max-w-[520px]"
       data-modal="true"
       data-size="md"
       data-state="open"

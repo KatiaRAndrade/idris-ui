@@ -540,13 +540,11 @@ Por isso as duas partes avisam o Root ao montar (`useEffect` + callback), e o `C
 
 ---
 
-## 11. Simplificação deliberada: animação de saída
+## 11. Animação de saída — resolvida via `usePresence`
 
-O `Dialog.Portal` desmonta o conteúdo assim que `open` vira `false`. Resultado: a **entrada** pode ser animada (o elemento monta e a transição roda), mas a **saída** é instantânea — não dá pra animar algo que já saiu do DOM.
+A simplificação original (entrada anima, saída é instantânea porque o `Dialog.Portal` desmontava assim que `open` virava `false`) deixou de existir. `Dialog.Overlay` e `Dialog.Content` agora consomem [`usePresence`](./idris-hook-use-presence.md): cada um se registra no Root enquanto estiver "presente" (montado, incluindo durante a transição de saída), e o `Dialog.Portal` só desmonta quando `presentCount` chega a zero.
 
-Resolver isso direito exige um `usePresence`: manter o elemento montado até a transição terminar, escutando `animationend`/`transitionend`. O `forceMount` no `Portal` já deixa a porta aberta pra isso (quem usa pode manter montado e controlar a visibilidade na mão). Fica documentado como próxima melhoria, junto com o `usePresence` que Popover e Select também vão querer — quando aparecer, é um hook novo em `hooks/`, não uma mudança nesse componente.
-
-Mesmo espírito das simplificações da seção 3 de [`idris-componente-tooltip.md`](./idris-componente-tooltip.md): documentado, não esquecido.
+`Dialog.styles.ts` reage ao `data-state` como qualquer outro estado do sistema — `data-[state=open]:opacity-100` / `data-[state=closed]:opacity-0` no overlay e no content, sem lógica condicional no `.tsx`. A API pública não mudou: `forceMount` no Portal continua existindo pra quem quiser controlar a montagem na mão.
 
 ---
 

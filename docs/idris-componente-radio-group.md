@@ -35,7 +35,7 @@ Qual item recebe o `0`:
 
 **Como o Item descobre se é o primeiro:** cada item habilitado se registra no contexto ao montar (`useEffect` + callback), no mesmo padrão que `Input.Hint`/`Input.Error` já usam pra montar o `aria-describedby`. A ordem de registro corresponde à ordem de montagem, que na montagem inicial é a ordem do DOM.
 
-**Simplificação deliberada (v1):** a navegação por setas encontra os irmãos com uma query no DOM (`closest('[role="radiogroup"]')` → `querySelectorAll('[role="radio"]')`), em vez de manter um registro de refs em ordem no contexto. É mais simples, funciona com itens renderizados dinamicamente, e resolve sozinho o caso de itens reordenados — o custo é depender do DOM em vez do estado do React. Se o RadioGroup um dia precisar funcionar com itens em portais separados, é aqui que muda. Mesmo espírito das simplificações documentadas na seção 3 de `idris-componente-tooltip.md`.
+**Retrofit:** a navegação por setas e o cálculo do `tabIndex` foram extraídos pro hook compartilhado [`useRovingFocus`](./idris-hook-use-roving-focus.md), que outros seis componentes (Tabs, ToggleGroup, Toolbar, Menubar, NavigationMenu, DropdownMenu, Select) também vão consumir. O comportamento não mudou — os irmãos continuam descobertos por query no DOM (`closest('[role="radiogroup"]')` → `querySelectorAll('[data-roving-item]')`) em vez de um registro de refs no contexto, pelos mesmos motivos documentados na seção 8 daquele hook: mais simples, funciona com itens renderizados dinamicamente, resolve sozinho o caso de itens reordenados. O ganho novo, de graça na extração: `Home`/`End` agora levam às pontas do grupo.
 
 ## 4. Tamanhos, orientação e estados
 
