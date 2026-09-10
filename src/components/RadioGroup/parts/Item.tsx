@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, type ButtonHTMLAttributes } from 'react'
+import { resolveRovingTabIndex, useRovingFocus } from '../../../hooks/useRovingFocus'
 import { useRadioGroupContext, RadioItemContext } from '../RadioGroup.context'
 import { item as itemStyles } from '../RadioGroup.styles'
 
@@ -19,7 +20,12 @@ export const RadioGroupItem = forwardRef<HTMLButtonElement, RadioGroupItemProps>
       return group.registerItem(value)
     }, [isDisabled, value, group.registerItem]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    const isRovingTarget = checked || (group.value === undefined && group.firstValue === value)
+    const handleRovingKeyDown = useRovingFocus({
+      containerSelector: '[role="radiogroup"]',
+      orientation: 'both', // radio aceita as quatro setas
+      loop: true,
+      activateOnNavigate: true, // navegar seleciona — comportamento nativo de radio
+    })
 
     return (
       <RadioItemContext.Provider value={{ checked, size: group.size }}>
@@ -27,8 +33,13 @@ export const RadioGroupItem = forwardRef<HTMLButtonElement, RadioGroupItemProps>
           ref={ref}
           type="button"
           role="radio"
+          data-roving-item
           aria-checked={checked}
-          tabIndex={isRovingTarget ? 0 : -1}
+          tabIndex={resolveRovingTabIndex({
+            isActive: checked,
+            hasActive: group.value !== undefined,
+            isFirst: group.firstValue === value,
+          })}
           disabled={isDisabled}
           data-state={checked ? 'checked' : 'unchecked'}
           data-size={group.size}
@@ -43,7 +54,7 @@ export const RadioGroupItem = forwardRef<HTMLButtonElement, RadioGroupItemProps>
           onKeyDown={(event) => {
             onKeyDown?.(event)
             if (event.defaultPrevented) return
-            handleArrowNavigation(event)
+            handleRovingKeyDown(event)
           }}
           {...props}
         >
@@ -53,36 +64,5 @@ export const RadioGroupItem = forwardRef<HTMLButtonElement, RadioGroupItemProps>
     )
   }
 )
-
-const NEXT_KEYS = ['ArrowDown', 'ArrowRight']
-const PREV_KEYS = ['ArrowUp', 'ArrowLeft']
-
-/**
- * Move o foco pro item vizinho e o seleciona (padrão ARIA de radiogroup:
- * navegar já seleciona). Os irmãos vêm de uma query no DOM — ver seção 3.
- */
-function handleArrowNavigation(event: React.KeyboardEvent<HTMLButtonElement>) {
-  const isNext = NEXT_KEYS.includes(event.key)
-  const isPrev = PREV_KEYS.includes(event.key)
-  if (!isNext && !isPrev) return
-
-  const group = event.currentTarget.closest('[role="radiogroup"]')
-  if (!group) return
-
-  const items = Array.from(
-    group.querySelectorAll<HTMLButtonElement>('[role="radio"]:not([disabled])')
-  )
-  const current = items.indexOf(event.currentTarget)
-  if (current === -1) return
-
-  // Circular: do último volta pro primeiro, e vice-versa
-  const nextIndex = isNext
-    ? (current + 1) % items.length
-    : (current - 1 + items.length) % items.length
-
-  event.preventDefault() // impede a página de rolar com as setas
-  items[nextIndex].focus()
-  items[nextIndex].click() // navegar seleciona
-}
 
 RadioGroupItem.displayName = 'RadioGroup.Item'
