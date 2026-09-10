@@ -3,3 +3,5 @@ dist
 storybook-static
 *.local
 .DS_Store
+docs/Exemplos/
+docs/NovasCores/
