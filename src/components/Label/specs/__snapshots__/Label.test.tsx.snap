@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Label > corresponde ao snapshot 1`] = `
+<div>
+  <label
+    class="inline-flex items-center gap-1 font-sans text-text-primary select-none data-[disabled]:text-text-secondary data-[disabled]:cursor-not-allowed text-sm font-medium"
+    data-required="true"
+    data-size="md"
+    for="email"
+  >
+    E-mail
+    <span
+      aria-hidden="true"
+      class="text-error"
+    >
+      *
+    </span>
+    <span
+      class="sr-only "
+    >
+      (obrigatório)
+    </span>
+  </label>
+</div>
+`;
