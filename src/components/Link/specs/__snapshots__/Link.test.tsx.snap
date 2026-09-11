@@ -1,0 +1,35 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Link > corresponde ao snapshot 1`] = `
+<div>
+  <a
+    class="inline-flex items-center gap-1 font-sans text-brand-400 underline-offset-4 hover:underline transition-colors duration-fast rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 visited:text-accent-400"
+    data-external="true"
+    href="https://exemplo.com"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    Exemplo
+    <svg
+      aria-hidden="true"
+      fill="none"
+      height="12"
+      stroke="currentColor"
+      stroke-width="1.5"
+      viewBox="0 0 12 12"
+      width="12"
+    >
+      <path
+        d="M3.5 8.5 8.5 3.5M4.5 3.5h4v4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+    <span
+      class="sr-only "
+    >
+      (abre em nova aba)
+    </span>
+  </a>
+</div>
+`;
