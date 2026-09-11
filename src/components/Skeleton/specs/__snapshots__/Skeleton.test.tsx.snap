@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Skeleton > corresponde ao snapshot 1`] = `
+<div>
+  <div
+    aria-hidden="true"
+    class="bg-surface-elevated animate-pulse motion-reduce:animate-none rounded-md h-32"
+    data-shape="rect"
+  />
+</div>
+`;
