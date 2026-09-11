@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Avatar > corresponde ao snapshot 1`] = `
+<div>
+  <span
+    class="relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-surface-elevated select-none h-12 w-12"
+    data-size="lg"
+    data-state="idle"
+  >
+    <span
+      class="font-sans font-medium uppercase text-text-secondary text-base"
+    >
+      KA
+    </span>
+  </span>
+</div>
+`;
