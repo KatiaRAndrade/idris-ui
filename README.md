@@ -1,167 +1,34 @@
 # Idris
 
-> Design system pessoal em React + TypeScript + Tailwind — dark mode por padrão, com suporte a light mode.
+Design system pessoal em React, TypeScript e Tailwind, publicado como `idris-ui`.
 
-[![npm version](https://img.shields.io/npm/v/idris-ui.svg)](https://www.npmjs.com/package/idris-ui)
-[![license](https://img.shields.io/npm/l/idris-ui.svg)](./LICENSE)
+> **Em reconstrução (v2).** O código da v1 foi removido neste branch e continua disponível no `main` e no histórico do git. A v2 começou pelo design no Figma; o código volta a ser escrito a partir das decisões registradas em [`docs/idris-fundacoes-v2.md`](./docs/idris-fundacoes-v2.md).
 
----
+## Identidade
 
-## Sobre
+- **Cores:** Bordô (PMS 7421C) e Verde-Oliva (PMS 575C), com neutro quente e quatro cores de status (danger, success, warning, info) em rampas separadas da marca. Temas light e dark com os mesmos tokens semânticos.
+- **Tipografia:** Playfair Display nos títulos H1 a H3; Plus Jakarta Sans em todo o resto.
+- **Forma:** radius de 4px; círculo em avatar e radio; pílula no switch.
+- **Ícones:** Phosphor. A biblioteca não depende de nenhum pacote de ícones: o ícone entra pela parte `.Icon` de cada componente.
 
-Idris é uma biblioteca de componentes React construída do zero como projeto de portfólio, cobrindo o processo completo de um design system: tokens de design, tipografia, arquitetura de componentes e documentação viva no Storybook.
+## Fonte da verdade
 
-A identidade visual parte de uma paleta editorial — **teal, magenta-vinho, preto e bege** — combinada com uma dupla tipográfica de serifado de display (Fraunces) e sans-serif de interface (Inter), resultando num sistema com personalidade moderna/tech e um toque premium.
+| O quê | Onde |
+|---|---|
+| Tokens, decisões e especificação dos componentes | [`docs/idris-fundacoes-v2.md`](./docs/idris-fundacoes-v2.md) |
+| Design (variáveis, estilos e componentes) | [Figma: Idris — Design System](https://www.figma.com/design/mb2mEKEpTbIoqQf6qr7NPs) |
+| Referência visual da paleta | `docs/NovasCores/` (fora do git) |
 
-## Índice
+Os nomes dos tokens são os mesmos no Figma e no CSS: a barra do Figma vira hífen, com o prefixo do grupo (`color/action/primary` ↔ `--color-action-primary`).
 
-- [Instalação](#instalação)
-- [Uso rápido](#uso-rápido)
-- [Temas (dark/light)](#temas-darklight)
-- [Design tokens](#design-tokens)
-- [Componentes](#componentes)
-- [Stack técnica](#stack-técnica)
-- [Desenvolvimento](#desenvolvimento)
-- [Roadmap](#roadmap)
-- [Licença](#licença)
+## Stack
 
----
+Vite (library mode) · React + TypeScript · Tailwind + `tailwind-variants` · Storybook · Vitest + Testing Library · Changesets · npm (`idris-ui`). Tema via CSS variables e atributo `data-theme`.
 
-## Instalação
+## Próximos passos
 
-```bash
-npm install idris-ui
-```
+1. Rediscutir a estrutura do código (regras de arquitetura, Tailwind v3 ou v4).
+2. Gerar o `theme.css` a partir das variáveis do Figma.
+3. Reconstruir os componentes na ordem do Figma: base (`Slot`, `useControllableState`, Heading/Text), Button, Input, Checkbox · Radio · Switch, Badge · Avatar, Tooltip, Card · Alert.
 
-Importe o CSS uma vez na raiz da sua aplicação:
-
-```ts
-import 'idris-ui/styles.css'
-```
-
-## Uso rápido
-
-```tsx
-import { Button } from 'idris-ui'
-
-function App() {
-  return (
-    <Button variant="primary" size="md">
-      Salvar
-    </Button>
-  )
-}
-```
-
-## Temas (dark/light)
-
-O dark mode é o tema padrão. Para alternar, defina o atributo `data-theme` na tag `<html>`:
-
-```ts
-document.documentElement.setAttribute('data-theme', 'light') // ou 'dark'
-```
-
-Todos os componentes consomem cores via **tokens semânticos** (CSS variables), então a troca de tema não exige nenhuma mudança de código nos componentes — só o valor do atributo.
-
-## Design tokens
-
-### Cores
-
-Paleta primária derivada de referência de moodboard (Pantone Teal Blue + Magenta Purple), com semânticas ajustadas pra manter a mesma temperatura muted:
-
-| Token | Dark | Light | Uso |
-|---|---|---|---|
-| `brand-500` | `#123F45` | `#123F45` | Teal — cor de ação primária |
-| `accent-500` | `#5A2440` | `#5A2440` | Magenta-vinho — accent secundário/premium |
-| `background` | `#171310` | `#F7F3EA` | Fundo base |
-| `surface` | `#1F1B17` | `#FFFFFF` | Cards, painéis |
-| `text-primary` | `#EDE6D6` | `#171310` | Texto principal |
-| `success` | `#5B7A5D` | `#5B7A5D` | Estados positivos |
-| `warning` | `#C9932E` | `#C9932E` | Avisos |
-| `error` | `#C0261E` | `#C0261E` | Erros, ações destrutivas |
-| `info` | `#5C87A6` | `#5C87A6` | Informativo |
-
-> Lista completa de tokens (incluindo variações `-hover` e `-bg`) em [`design-system-fundacao.md`](./design-system-fundacao.md).
-
-Além da versão flat, o `accent` (magenta-vinho) tem duas **variantes metalizadas** (`accent-metallic` e `accent-metallic-gold`) — gradientes reservados para momentos de destaque premium (hero, badges de assinatura), não para UI funcional do dia a dia.
-
-### Tipografia
-
-| Papel | Fonte | Uso |
-|---|---|---|
-| Display / Títulos | **Fraunces** (serifado) | `display` até `heading-4` |
-| Corpo / UI | **Inter** (sans-serif) | `body-lg` até `caption`, toda UI funcional |
-
-Escala completa: `display` (56px) → `heading-1/2/3/4` → `body-lg/body/body-sm` → `label` → `caption` (12px).
-
-### Espaçamento, bordas e motion
-
-- **Espaçamento:** escala base 4px, de `space-1` (4px) a `space-9` (96px)
-- **Radius:** `sm` (6px) / `md` (10px) / `lg` (16px) / `full`
-- **Elevação:** sem `box-shadow` tradicional — troca de superfície (`surface` → `surface-elevated`) + borda sutil de 1px
-- **Motion:** durações `fast` (150ms) / `base` (250ms) / `slow` (400ms), com easings padrão de entrada/saída
-
-## Componentes
-
-Construídos com [`tailwind-variants`](https://www.tailwind-variants.org/) para gestão de variantes/estados.
-
-| Componente | Status | Variantes |
-|---|---|---|
-| **Button** | ✅ Disponível | `primary` · `secondary` · `ghost` · `destructive` — tamanhos `sm/md/lg` — estados `default/hover/active/disabled/loading` |
-| Input / Textarea | 🚧 Planejado | — |
-| Card | 🚧 Planejado | — |
-| Badge / Tag | 🚧 Planejado | — |
-| Select / Dropdown | 🚧 Planejado | — |
-| Checkbox / Radio / Switch | 🚧 Planejado | — |
-| Toast / Alert | 🚧 Planejado | — |
-| Modal / Dialog | 🚧 Planejado | — |
-| Tooltip | 🚧 Planejado | — |
-
-Documentação interativa de cada componente disponível no Storybook (veja [Desenvolvimento](#desenvolvimento)).
-
-## Stack técnica
-
-- **Framework:** React 18 + TypeScript
-- **Estilo:** Tailwind CSS + `tailwind-variants`
-- **Build:** Vite (library mode), gerando ESM + CJS com tipos
-- **Documentação:** Storybook
-- **Testes:** Vitest + Testing Library
-- **Versionamento:** Changesets (semver + changelog automático)
-- **Publicação:** npm público
-
-## Desenvolvimento
-
-```bash
-git clone https://github.com/<seu-usuario>/idris-ui.git
-cd idris-ui
-npm install
-
-npm run dev              # Storybook em http://localhost:6006
-npm run test             # roda a suíte de testes
-npm run test:watch       # testes em modo watch
-npm run build             # build da lib (dist/)
-npm run build:storybook   # build estático do Storybook
-```
-
-### Contribuindo (uso pessoal)
-
-1. Crie um componente seguindo a estrutura por pasta: `src/components/NomeDoComponente/`
-2. Cada componente inclui `Componente.tsx`, `Componente.stories.tsx`, `Componente.test.tsx` e `index.ts`
-3. Use os tokens (`bg-brand-500`, `text-text-primary` etc.) em vez de valores hardcoded
-4. Rode `npm run changeset` descrevendo a mudança antes de publicar
-
-Guia completo de setup em [`idris-passo-a-passo.md`](./idris-passo-a-passo.md).
-
-## Roadmap
-
-- [x] Fundação: tokens de cor, tipografia, espaçamento, radius, motion
-- [x] Componente-modelo: Button
-- [ ] Onda 1: Input, Card, Badge, Typography
-- [ ] Onda 2: Select, Checkbox/Radio/Switch, Toast, Modal, Tooltip
-- [ ] Onda 3: padrões compostos (formulário completo, navegação, tabela de dados)
-- [ ] Auditoria de acessibilidade (WCAG AA) em todos os componentes
-- [ ] v1.0.0 no npm
-
-## Licença
-
-MIT © [Ka](https://github.com/<seu-usuario>)
+As configurações de Vite, Storybook e Vitest foram mantidas, mas ainda apontam para arquivos da v1 (`src/index.ts`, `src/test-setup.ts`, stories em `src/`). Elas serão ajustadas quando o novo `src/` começar.
